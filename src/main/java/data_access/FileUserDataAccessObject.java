@@ -37,8 +37,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
         if (csvFile.length() == 0) {
             save();
-        }
-        else {
+        } else {
 
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 final String header = reader.readLine();
@@ -75,8 +74,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
             writer.close();
 
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -114,5 +112,17 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
     public void setCurrentUser(String name) {
         // **Empty Implementation**
         // Not needed for File-based DAO in this phase
+    }
+
+    /**
+     * Retrieves the current logged-in user.
+     * Not implemented for File-based DAO.
+     *
+     * @return Always returns null as File-based DAO does not track current user.
+     */
+    @Override
+    public String getCurrentUser() {
+        // **Not Implemented**
+        return null;
     }
 }

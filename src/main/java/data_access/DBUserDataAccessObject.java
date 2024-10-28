@@ -55,12 +55,10 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
                 final String password = userJSONObject.getString(PASSWORD);
 
                 return userFactory.create(name, password);
-            }
-            else {
+            } else {
                 throw new RuntimeException(responseBody.getString(MESSAGE));
             }
-        }
-        catch (IOException | JSONException ex) {
+        } catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -79,8 +77,7 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
             final JSONObject responseBody = new JSONObject(response.body().string());
 
             return responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE;
-        }
-        catch (IOException | JSONException ex) {
+        } catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -108,12 +105,10 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
 
             if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
                 // success!
-            }
-            else {
+            } else {
                 throw new RuntimeException(responseBody.getString(MESSAGE));
             }
-        }
-        catch (IOException | JSONException ex) {
+        } catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -141,12 +136,10 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
 
             if (responseBody.getInt(STATUS_CODE_LABEL) == SUCCESS_CODE) {
                 // success!
-            }
-            else {
+            } else {
                 throw new RuntimeException(responseBody.getString(MESSAGE));
             }
-        }
-        catch (IOException | JSONException ex) {
+        } catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -161,5 +154,17 @@ public class DBUserDataAccessObject implements SignupUserDataAccessInterface,
     public void setCurrentUser(String name) {
         // **Empty Implementation**
         // Not needed for DB-based DAO in this phase
+    }
+
+    /**
+     * Retrieves the current logged-in user.
+     * Not implemented for DB-based DAO.
+     *
+     * @return Always returns null as DB-based DAO does not track current user.
+     */
+    @Override
+    public String getCurrentUser() {
+        // **Not Implemented**
+        return null;
     }
 }

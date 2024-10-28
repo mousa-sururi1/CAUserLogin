@@ -56,6 +56,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
      *
      * @return The username of the currently logged-in user, or null if no user is logged in.
      */
+    @Override
     public String getCurrentUser() {
         return this.currentUser;
     }
