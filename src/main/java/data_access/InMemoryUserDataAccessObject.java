@@ -13,12 +13,12 @@ import use_case.signup.SignupUserDataAccessInterface;
  * NOT persist data between runs of the program.
  */
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
-                                                     LoginUserDataAccessInterface,
-                                                     ChangePasswordUserDataAccessInterface {
+        LoginUserDataAccessInterface,
+        ChangePasswordUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
-    private String currentUser;
+    private String currentUser; // Tracks the currently logged-in user
 
     @Override
     public boolean existsByName(String identifier) {
@@ -41,4 +41,33 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         users.put(user.getName(), user);
     }
 
+    /**
+     * Sets the current logged-in user.
+     *
+     * @param name The username of the currently logged-in user.
+     */
+    @Override
+    public void setCurrentUser(String name) {
+        this.currentUser = name;
+    }
+
+    /**
+     * Retrieves the current logged-in user.
+     *
+     * @return The username of the currently logged-in user, or null if no user is logged in.
+     */
+    @Override
+    public String getCurrentUser() {
+        return this.currentUser;
+    }
+
+    /**
+     * Adds a user to the in-memory data store.
+     * Useful for testing purposes.
+     *
+     * @param user The User object to add.
+     */
+    public void addUser(User user) {
+        users.put(user.getName(), user);
+    }
 }

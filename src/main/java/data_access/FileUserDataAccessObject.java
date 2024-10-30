@@ -20,8 +20,8 @@ import use_case.signup.SignupUserDataAccessInterface;
  * DAO for user data implemented using a File to persist the data.
  */
 public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
-                                                 LoginUserDataAccessInterface,
-                                                 ChangePasswordUserDataAccessInterface {
+        LoginUserDataAccessInterface,
+        ChangePasswordUserDataAccessInterface {
 
     private static final String HEADER = "username,password";
 
@@ -37,14 +37,13 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
         if (csvFile.length() == 0) {
             save();
-        }
-        else {
+        } else {
 
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 final String header = reader.readLine();
 
                 if (!header.equals(HEADER)) {
-                    throw new RuntimeException(String.format("header should be%n: %s%but was:%n%s", HEADER, header));
+                    throw new RuntimeException(String.format("header should be%n: %s%nbut was:%n%s", HEADER, header));
                 }
 
                 String row;
@@ -75,8 +74,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
 
             writer.close();
 
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -102,5 +100,29 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface,
         // Replace the User object in the map
         accounts.put(user.getName(), user);
         save();
+    }
+
+    /**
+     * Sets the current logged-in user.
+     * Not implemented for File-based DAO.
+     *
+     * @param name The username of the currently logged-in user.
+     */
+    @Override
+    public void setCurrentUser(String name) {
+        // **Empty Implementation**
+        // Not needed for File-based DAO in this phase
+    }
+
+    /**
+     * Retrieves the current logged-in user.
+     * Not implemented for File-based DAO.
+     *
+     * @return Always returns null as File-based DAO does not track current user.
+     */
+    @Override
+    public String getCurrentUser() {
+        // **Not Implemented**
+        return null;
     }
 }
